@@ -1,3 +1,3 @@
 # learn-github-actions
 
-UPDATED READMEs
+UPDATED README
