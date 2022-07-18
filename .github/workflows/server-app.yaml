@@ -8,5 +8,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-        working-directory: './learn-github-actions/src'
-      - run: docker build . -t app-server
+        working-directory: ./learn-github-actions/src
+        run: docker build . -t app-server
