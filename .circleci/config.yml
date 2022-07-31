@@ -5,6 +5,10 @@ jobs:
       - image: cimg/base:2021.04
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: '14.8.1'
+      - run: yarn
       - run:
           name: Test
           command: yarn test
