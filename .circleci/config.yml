@@ -6,12 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+          name: Test
+          command: yarn test
       - run:
-          name: The Second Step
-          command: |
-            ls -al
-            echo '^^^The files in your repo^^^'
+          name: Build docker image
+          command: docker build . -t test-image
