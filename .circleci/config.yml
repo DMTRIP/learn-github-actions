@@ -7,6 +7,8 @@ jobs:
       - checkout
       - run: node --version
       - run: yarn
+      - run: ls
+      - run: pwd
       - run:
           name: Test
           command: yarn test
