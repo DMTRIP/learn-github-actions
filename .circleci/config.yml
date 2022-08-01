@@ -5,6 +5,8 @@ jobs:
       - image: cimg/node:14.19
     steps:
       - checkout
+      - setup_remote_docker:
+          verstion: 20.10.14
       - run: 
           name: Install Docker
           command: curl -fsSL https://get.docker.com -o get-docker.sh && DRY_RUN=1 sh ./get-docker.sh
