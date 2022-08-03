@@ -3,9 +3,9 @@ jobs:
   build-and-push:
     docker:
       - image: cimg/node:14.19
-    environment:
-      ECR_URL: $ECR_URL
-      ECR_PASSWORD: $ECR_PASSWORD
+      environment:
+        ECR_URL: $ECR_URL
+        ECR_PASSWORD: $ECR_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
@@ -19,8 +19,9 @@ jobs:
           command: docker build . -t $ECR_URL
       - run: 
           name: Push
-          command: "echo $ECR_PASSWORD | docker login -u AWS --password-stdin
-          docker push $ECR_URL"
+          command: |
+          echo $ECR_PASSWORD | docker login -u AWS --password-stdin
+          docker push $ECR_URL
 
 workflows:
   build:
