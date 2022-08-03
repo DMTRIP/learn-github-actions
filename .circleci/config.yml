@@ -18,7 +18,7 @@ jobs:
       - run: 
           name: Push
           command: |
-            echo $ECR_PASSWORD | docker login -u AWS --password-stdin
+            echo $ECR_PASSWORD | docker login -u AWS --password-stdin $ECR_URL
             docker push $ECR_URL
 
 workflows:
