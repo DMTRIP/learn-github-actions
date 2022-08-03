@@ -1,8 +1,11 @@
 version: 2.1
 jobs:
-  build:
+  build-and-push:
     docker:
       - image: cimg/node:14.19
+    environment:
+      ecr_url: $ECR_URL
+      ecr_password: $ECR_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
@@ -13,9 +16,14 @@ jobs:
           command: yarn test
       - run:
           name: Build docker image
-          command: docker build . -t test-image
+          command: docker build . -t $
+      - run: 
+          name: Push
+          command: |
+          echo $ecr-password | docker login -u AWS --password-stdin
+          docker push $ecr-url
 
 workflows:
   build:
     jobs:
-      - build
+      - build-and-push
