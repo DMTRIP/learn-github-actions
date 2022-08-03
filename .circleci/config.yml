@@ -3,9 +3,9 @@ jobs:
   build-and-push:
     docker:
       - image: cimg/node:14.19
-      environment:
-        ECR_URL: $ECR_URL
-        ECR_PASSWORD: $ECR_PASSWORD
+    environment:
+      ECR_URL: $ECR_URL
+      ECR_PASSWORD: $ECR_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
@@ -14,6 +14,7 @@ jobs:
       - run:
           name: Test
           command: yarn test
+      - run: sh -c env | grep ECR
       - run:
           name: Build docker image
           command: docker build . -t $ECR_URL
