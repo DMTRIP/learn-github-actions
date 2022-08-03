@@ -3,9 +3,6 @@ jobs:
   build-and-push:
     docker:
       - image: cimg/node:14.19
-    environment:
-      ECR_URL: $ECR_URL
-      ECR_PASSWORD: $ECR_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
