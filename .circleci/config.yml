@@ -16,7 +16,7 @@ jobs:
           command: yarn test
       - run:
           name: Build docker image
-          command: docker build . -t $
+          command: docker build . -t $ecr_url
       - run: 
           name: Push
           command: "echo $ecr-password | docker login -u AWS --password-stdin
