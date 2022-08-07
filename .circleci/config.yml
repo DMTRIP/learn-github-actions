@@ -26,10 +26,9 @@ jobs:
 
 workflows:
   build-and-push:
-    triggers:
-      filters:
-        branches:
-          only: 
-            - master
     jobs:
-      - build-and-push
+      - build-and-push:
+          filters:
+            branches:
+              only: 
+                - master
