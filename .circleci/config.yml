@@ -1,4 +1,7 @@
 version: 2.1
+
+branch: master
+
 jobs:
   build-and-push:
     docker:
@@ -23,5 +26,7 @@ jobs:
 
 workflows:
   build:
+    branches:
+      only: master
     jobs:
       - build-and-push
