@@ -33,7 +33,7 @@ jobs:
             sudo add-apt-repository ppa:deadsnakes/ppa
             sudo apt update
             sudo apt install python3.8
-            python -v
+            python3 -V
             # 1 - Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
