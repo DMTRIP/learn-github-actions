@@ -3,7 +3,7 @@ version: 2.1
 branch: master
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     docker:
       - image: cimg/node:14.19
     steps:
@@ -11,21 +11,38 @@ jobs:
       - setup_remote_docker:
           verstion: 20.10.14
       - run: yarn
+      - run: pwd
       - run:
           name: Test
           command: yarn test
-      - run: sh -c env | grep ECR
       - run:
           name: Build docker image
-          command: docker build . -t $ECR_URL
+          command: |
+            APP_VERSION=$(npx -c 'echo "$npm_package_version"')
+            docker build . -t $ECR_URL
       - run: 
           name: Push
           command: |
             echo $ECR_PASSWORD | docker login -u AWS --password-stdin $ECR_URL
             docker push $ECR_URL
+      - run:
+          name: Deploy
+          command: |
+            # 1 - Install AWS CLI
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -b ~/bin/aws
+            # 2 - SSH to the server to deploy
+            EC2_USERNAME=ec2-user
+            EC2_HOST=ec2-52-90-158-9.compute-1.amazonaws.com
+            ssh $EC2_USERNAME@$EC2_HOST
+            docker pull my-very-first-web-app
+            docker stop my-very-first-web-app
+            docker run -p 3000:3000 -d my-very-first-web-app
+
 
 workflows:
-  build-and-push:
+  build-push-deploy:
     jobs:
       - build-and-push:
           filters:
