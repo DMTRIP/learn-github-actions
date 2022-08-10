@@ -5,7 +5,7 @@ branch: master
 jobs:
   build-push-deploy:
     docker:
-      - image: cimg/python:3.7-node
+      - image: cimg/node:14.19
     steps:
       - checkout
       - setup_remote_docker:
@@ -28,6 +28,11 @@ jobs:
       - run:
           name: Deploy
           command: |
+            sudo apt update
+            sudo apt install software-properties-common
+            sudo add-apt-repository ppa:deadsnakes/ppa
+            sudo apt update
+            sudo apt install python3.8
             # 1 - Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
