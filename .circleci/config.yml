@@ -5,7 +5,7 @@ branch: master
 jobs:
   build-push-deploy:
     docker:
-      - image: cimg/node:14.19
+      - image: cimg/python:3.7-node
     steps:
       - checkout
       - setup_remote_docker:
